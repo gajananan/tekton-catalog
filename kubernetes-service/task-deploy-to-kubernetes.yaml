@@ -125,8 +125,13 @@ spec:
           exit 1
         fi
 
+        ibmcloud ks cluster config -c "${PIPELINE_KUBERNETES_CLUSTER_NAME}";
+        if which oc > /dev/null && ibmcloud ks cluster get -c "${PIPELINE_KUBERNETES_CLUSTER_NAME}" --json | jq -e '.type=="openshift"' > /dev/null; then oc login -u apikey -p "${PIPELINE_BLUEMIX_API_KEY}" ; fi;
+
+
         ibmcloud ks cluster get --cluster $PIPELINE_KUBERNETES_CLUSTER_NAME --json > /steps/$PIPELINE_KUBERNETES_CLUSTER_NAME.json
 
+        
         export PIPELINE_TOOLCHAIN_ID=$(jq -r '.toolchain_guid' /artifacts/_toolchain.json)
 
         if [ "$SHUTTLE_PROPERTIES_FILE" ]; then
