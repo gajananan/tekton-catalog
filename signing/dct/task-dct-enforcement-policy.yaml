@@ -77,10 +77,14 @@ spec:
 
         ibmcloud ks cluster config --cluster "${TARGET_CLUSTER}"
 
+        if which oc > /dev/null && ibmcloud ks cluster get -c "${TARGET_CLUSTER}" --json | jq -e '.type=="openshift"' > /dev/null; then oc login -u apikey -p "${IBM_CLOUD_API_KEY}" ; fi;
+
+
         if ! kubectl get namespace "$CLUSTER_NAMESPACE"; then
           echo "creating namespace $CLUSTER_NAMESPACE"
           kubectl create namespace "$CLUSTER_NAMESPACE"
         fi
+
 
         # Verify helm is up & running
         source <(curl -s -S -L "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_helm_up_and_running.sh")
