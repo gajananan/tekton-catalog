@@ -103,7 +103,7 @@ spec:
           export $(cut -d= -f1 $SHUTTLE_PROPERTIES_FILE)            
         fi
 
-        source <(curl -s -S -L "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/image_signing/create_cise_crd.sh")
+        source <(curl -s -S -L "https://raw.githubusercontent.com/gajananan/commons/master/scripts/image_signing/create_cise_crd.sh")
 
         # Define custom user policies
         echo "Create CISE custom policies"
