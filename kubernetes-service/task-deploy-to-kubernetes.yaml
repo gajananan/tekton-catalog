@@ -2,7 +2,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: iks-deploy-to-kubernetes
+  name: artifact-sign-iks-deploy-to-kubernetes
 spec:
   params:
     - name: ibmcloud-api
