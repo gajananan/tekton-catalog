@@ -160,6 +160,9 @@ spec:
 
           echo -n "gitsecure-bom-results.json" > $(results.evidence-store.path)
           echo "COMMENT_FP=./gitsecure-bom-comment.md" >> /steps/next-step-env.properties
+          echo "---------------- Generated BOM --------------- "
+          cat gitsecure-bom-results.json
+          echo "----------------------------------------------"
 
       volumeMounts:
         - mountPath: /config
