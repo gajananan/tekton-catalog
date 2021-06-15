@@ -185,7 +185,7 @@ spec:
         - |        
           echo "---------------- Checking Generated BOM --------------- "
           echo "GITHUB_AUTH_TOKEN: $GITHUB_AUTH_TOKEN"
-          export GITHUB_AUTH_TOKEN=$GITHUB_AUTH_TOKEN
+      
           #cat ./gitsecure-cis-results.json
 
           cat ./gitsecure-cis-results.json | jq -r '.assets[] | select(."npm-packages" != null)' | jq -r '."npm-packages"[] |  "\(.name)"'  | while read i; do
