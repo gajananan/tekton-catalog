@@ -176,7 +176,7 @@ spec:
       workingDir: "/artifacts"
       env: 
         - name: GITHUB_AUTH_TOKEN
-        - value: $(params.git_token) 
+          value: $(params.git_token) 
       volumeMounts:
         - mountPath: /steps
           name: steps-volume        
