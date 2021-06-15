@@ -47,7 +47,9 @@ spec:
     - name: pipeline-debug
       description: toggles debug mode for the pipeline
       default: "0"
-
+    - name: git_token
+      description: git token for criticality score
+      default: ""       
   results:
     - name: status
       description: status of bom task, possible value are-success|failure
@@ -169,7 +171,21 @@ spec:
           name: cd-config-volume
         - mountPath: /steps
           name: steps-volume
-
+    - name: criticality-score
+      image: gcr.io/cra-criticality/critical-score:dev
+      workingDir: "/artifacts"
+      env: 
+        - name: GITHUB_AUTH_TOKEN
+        - value: $(params.git_token) 
+      command: ["/bin/bash", "-c"]
+      args:
+        - |        
+          echo "---------------- Generated BOM --------------- "
+          cat ./gitsecure-cis-results.json
+          echo "----------------------------------------------"
+          cat ./gitsecure-cis-results.json | jq -r '.assets' | jq -r '.[]."other-packages"' | jq -r '.[]' | jq -r ".name" | grep github | while read i; do
+          criticality_score --repo $i
+          done  
     - name: fetch-git-information
       image: ibmcom/pipeline-base-image:2.6
       env:
