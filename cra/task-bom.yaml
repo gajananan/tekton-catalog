@@ -162,9 +162,9 @@ spec:
 
           echo -n "gitsecure-bom-results.json" > $(results.evidence-store.path)
           echo "COMMENT_FP=./gitsecure-bom-comment.md" >> /steps/next-step-env.properties
-          echo "---------------- Generated BOM --------------- "
-          cat ./gitsecure-cis-results.json
-          echo "----------------------------------------------"
+          #echo "---------------- Generated BOM --------------- "
+          #cat ./gitsecure-cis-results.json
+          #echo "----------------------------------------------"
 
       volumeMounts:
         - mountPath: /config
@@ -183,12 +183,15 @@ spec:
       command: ["/bin/bash", "-c"]
       args:
         - |        
-          echo "---------------- Generated BOM --------------- "
-          cat ./gitsecure-cis-results.json
-          echo "----------------------------------------------"
+          echo "---------------- Checking Generated BOM --------------- "
+          #cat ./gitsecure-cis-results.json
+          
           cat ./gitsecure-cis-results.json | jq -r '.assets[] | select(."npm-packages" != null)' | jq -r '."npm-packages"[] |  "\(.source)"' | grep github | while read i; do
+          echo $i
           criticality_score --repo $i
           done  
+          echo "----------------------------------------------"
+          
     - name: fetch-git-information
       image: ibmcom/pipeline-base-image:2.6
       env:
