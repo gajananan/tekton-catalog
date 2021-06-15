@@ -186,7 +186,7 @@ spec:
           echo "---------------- Generated BOM --------------- "
           cat ./gitsecure-cis-results.json
           echo "----------------------------------------------"
-          cat ./gitsecure-cis-results.json | jq -r '.assets' | jq -r '.[]."other-packages"' | jq -r '.[]' | jq -r ".name" | grep github | while read i; do
+          cat ./gitsecure-cis-results.json | jq -r '.assets[] | select(."npm-packages" != null)' | jq -r '."npm-packages"[] |  "\(.source)"' | grep github | while read i; do
           criticality_score --repo $i
           done  
     - name: fetch-git-information
