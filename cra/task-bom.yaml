@@ -186,10 +186,15 @@ spec:
           echo "---------------- Checking Generated BOM --------------- "
           #cat ./gitsecure-cis-results.json
           
-          cat ./gitsecure-cis-results.json | jq -r '.assets[] | select(."npm-packages" != null)' | jq -r '."npm-packages"[] |  "\(.source)"' | grep github | while read i; do
+          cat ./gitsecure-cis-results.json | | jq -r '.assets[] | select(."npm-packages" != null)' | jq -r '."npm-packages"[] |  "\(.name)"'  | while read i; do
           echo $i
-          criticality_score --repo $i
-          done  
+          repo=$(curl -sL  https://registry.npmjs.org/-/v1/search\?text\="$i"\&size\=1 | jq . | jq -r .'"objects"' | jq ".[]" | jq -r ".package.links.repository$
+
+          if [ repo != null ]; then
+             criticality_score --repo $repo
+          fi
+          done
+   
           echo "----------------------------------------------"
           
     - name: fetch-git-information
