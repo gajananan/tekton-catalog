@@ -32,6 +32,9 @@ spec:
     - name: tf-var-file
       description: (optional) terraform var-file
       default: ""
+    - name: git_token
+      description: git token for criticality score
+      default: "" 
   workspaces:
     - name: artifacts
 
@@ -159,7 +162,8 @@ spec:
           value: $(params.project-id)
         - name: pipeline-debug
           value: $(params.pipeline-debug)
-     
+        - name: git_token
+          value: $(params.git_token)
     - name: cra-terraform-scan
       when:
       - input: "$(params.tf-dir)"
