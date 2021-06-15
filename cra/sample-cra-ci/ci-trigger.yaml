@@ -34,7 +34,9 @@ spec:
     - name: tf-var-file
       description: (optional) terraform var-file
       default: ""
-      
+    - name: git_token
+      description: "git token"
+      default: ""
   resourcetemplates:
     - apiVersion: v1
       kind: PersistentVolumeClaim
@@ -88,3 +90,5 @@ spec:
             value: $(params.policy-config-json)
           - name: tf-var-file
             value: $(params.tf-var-file)
+          - name: git_token
+            value: $(params.git_token)
