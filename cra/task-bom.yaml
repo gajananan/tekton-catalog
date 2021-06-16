@@ -184,7 +184,7 @@ spec:
       args:
         - |        
           echo "---------------- Checking Generated BOM --------------- "
-          echo "GITHUB_AUTH_TOKEN: "$(cat /secrets/git_token)"
+          echo "GITHUB_AUTH_TOKEN: $(cat /secrets/git_token)"
       
           #cat ./gitsecure-cis-results.json
 
