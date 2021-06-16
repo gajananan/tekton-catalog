@@ -182,17 +182,17 @@ spec:
           name: steps-volume
         - mountPath: /properties
           name: environment-properties
-        - mountPath: /secrets
+        - mountPath: /secure-properties
           name: secure-properties
       command: ["/bin/bash", "-c"]
       args:
         - |        
           echo "---------------- Checking Generated BOM --------------- "
-          ls /secrets/
-          ls /secrets
+          ls /secure-properties/
+          ls /secure-properties
           ls /properties/
-          echo "GITHUB_AUTH_TOKEN: $(cat /secrets/git_token)"
-      
+          echo "GITHUB_AUTH_TOKEN: $(cat /secure-properties/git_token)"
+          export GITHUB_AUTH_TOKEN=$(cat /secure-properties/git_token)
           #cat ./gitsecure-cis-results.json
 
           cat ./gitsecure-cis-results.json | jq -r '.assets[] | select(."npm-packages" != null)' | jq -r '."npm-packages"[] |  "\(.name)"'  | while read i; do
