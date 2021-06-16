@@ -179,7 +179,11 @@ spec:
           value: $(params.git_token) 
       volumeMounts:
         - mountPath: /steps
-          name: steps-volume        
+          name: steps-volume
+        - mountPath: /properties
+          name: environment-properties
+        - mountPath: /secrets
+          name: secure-properties
       command: ["/bin/bash", "-c"]
       args:
         - |        
