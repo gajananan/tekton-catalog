@@ -71,6 +71,9 @@ spec:
   workspaces:
     - name: artifacts
       mountPath: /artifacts
+    - name: secrets
+      mountPath: /secrets
+
   volumes:
     - name: steps-volume
       emptyDir: {}

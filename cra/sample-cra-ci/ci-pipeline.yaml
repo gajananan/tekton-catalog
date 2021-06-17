@@ -170,6 +170,8 @@ spec:
       workspaces:
         - name: artifacts
           workspace: artifacts
+        - name: secrets
+          workspace: artifacts
       params:
         #- name: git_token
         #  value: $(params.git_token)
