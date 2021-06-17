@@ -171,8 +171,8 @@ spec:
         - name: artifacts
           workspace: artifacts
       params:
-        - name: git_token
-          value: $(params.git_token)
+        #- name: git_token
+        #  value: $(params.git_token)
         - name: pipeline-debug
           value: $(params.pipeline-debug)
     - name: cra-terraform-scan
