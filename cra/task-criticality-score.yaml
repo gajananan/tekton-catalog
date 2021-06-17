@@ -32,21 +32,22 @@ spec:
       env: 
         - name: GITHUB_AUTH_TOKEN
           value: $(params.git_token) 
-      #volumeMounts:
+      volumeMounts:
       # - mountPath: /steps
       #    name: steps-volume
-      #  - mountPath: /secure-properties
-      #    name: secure-properties
+        - mountPath: /git-token-dir
+          name: git-token
       command: ["/bin/bash", "-c"]
       args:
         - |        
           echo "---------------- Checking Generated BOM --------------- "
-          ls /secure-properties/
-          ls /secure-properties
-          ls /properties/
-          echo "GITHUB_AUTH_TOKEN: $(cat /secure-properties/git_token)"
-          export GITHUB_AUTH_TOKEN=$(cat /secure-properties/git_token)
-          #cat ./gitsecure-cis-results.json
+          ls /git-token-dir/
+          ls /git-token-dir
+         
+          echo "GITHUB_AUTH_TOKEN: $(cat /git-token-dir/git_token)"
+          export GITHUB_AUTH_TOKEN=$(cat /git-token-dir/git_token)
+          
+          cat ./gitsecure-cis-results.json
 
           cat ./gitsecure-cis-results.json | jq -r '.assets[] | select(."npm-packages" != null)' | jq -r '."npm-packages"[] |  "\(.name)"'  | while read i; do
           echo "package name : $i"
@@ -65,6 +66,6 @@ spec:
   volumes:
     - name: steps-volume
       emptyDir: {}
-    #- name: secure-properties
-    #  secret:
-    #    secretName: $(params.git_token)
+    - name: git-token
+      secret:
+        secretName: $(params.git_token)
