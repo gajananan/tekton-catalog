@@ -32,11 +32,11 @@ spec:
       env: 
         - name: GITHUB_AUTH_TOKEN
           value: $(params.git_token) 
-      volumeMounts:
-        - mountPath: /steps
-          name: steps-volume
-        - mountPath: /secure-properties
-          name: secure-properties
+      #volumeMounts:
+      # - mountPath: /steps
+      #    name: steps-volume
+      #  - mountPath: /secure-properties
+      #    name: secure-properties
       command: ["/bin/bash", "-c"]
       args:
         - |        
@@ -65,6 +65,6 @@ spec:
   volumes:
     - name: steps-volume
       emptyDir: {}
-    - name: secure-properties
-      secret:
-        secretName: $(params.git_token)
+    #- name: secure-properties
+    #  secret:
+    #    secretName: $(params.git_token)
