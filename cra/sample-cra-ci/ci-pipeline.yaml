@@ -162,6 +162,15 @@ spec:
           value: $(params.project-id)
         - name: pipeline-debug
           value: $(params.pipeline-debug)
+    - name: cra-criticality-score
+      taskRef:
+        name: cra-criticality-score
+      runAfter:
+        -  cra-bom
+      workspaces:
+        - name: artifacts
+          workspace: artifacts
+      params:
         - name: git_token
           value: $(params.git_token)
     - name: cra-terraform-scan

@@ -47,9 +47,6 @@ spec:
     - name: pipeline-debug
       description: toggles debug mode for the pipeline
       default: "0"
-    - name: git_token
-      description: git token for criticality score
-      default: ""       
   results:
     - name: status
       description: status of bom task, possible value are-success|failure
