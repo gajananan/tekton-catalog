@@ -36,10 +36,10 @@ spec:
               name: secure-properties
               key: git_token
       volumeMounts:
-      # - mountPath: /steps
-      #    name: steps-volume
-        - mountPath: /secrets
-          name: secure-properties
+       - mountPath: /steps
+         name: steps-volume
+      #  - mountPath: /secrets
+      #    name: secure-properties
       command: ["/bin/bash", "-c"]
       args:
         - |        
