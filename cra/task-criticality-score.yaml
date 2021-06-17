@@ -5,6 +5,9 @@ metadata:
   name: cra-criticality-score
 spec:
   params:
+    - name: pipeline-debug
+      description: toggles debug mode for the pipeline
+      default: "0"
     - name: git_token
       description: git token for criticality score
       default: ""       

@@ -173,6 +173,8 @@ spec:
       params:
         - name: git_token
           value: $(params.git_token)
+        - name: pipeline-debug
+          value: $(params.pipeline-debug)
     - name: cra-terraform-scan
       when:
       - input: "$(params.tf-dir)"
