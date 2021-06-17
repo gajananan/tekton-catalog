@@ -10,7 +10,7 @@ spec:
       default: "0"
     - name: git_token
       description: git token for criticality score
-      default: ""       
+      default: "secure-properties"       
   #results:
   #  - name: status
   #    description: status of bom task, possible value are-success|failure
@@ -35,17 +35,17 @@ spec:
       volumeMounts:
       # - mountPath: /steps
       #    name: steps-volume
-        - mountPath: /git-token-dir
-          name: git-token
+        - mountPath: /secrets
+          name: secure-properties
       command: ["/bin/bash", "-c"]
       args:
         - |        
           echo "---------------- Checking Generated BOM --------------- "
-          ls /git-token-dir/
-          ls /git-token-dir
+          ls /secrets/
+          ls /secrets
          
-          echo "GITHUB_AUTH_TOKEN: $(cat /git-token-dir/git_token)"
-          export GITHUB_AUTH_TOKEN=$(cat /git-token-dir/git_token)
+          echo "GITHUB_AUTH_TOKEN: $(cat /secrets/git_token)"
+          export GITHUB_AUTH_TOKEN=$(cat /secrets/git_token)
           
           cat ./gitsecure-cis-results.json
 
@@ -66,6 +66,6 @@ spec:
   volumes:
     - name: steps-volume
       emptyDir: {}
-    - name: git-token
+    - name: secure-properties
       secret:
         secretName: $(params.git_token)
