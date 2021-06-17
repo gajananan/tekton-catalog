@@ -46,6 +46,9 @@ spec:
           echo "";
           echo -e "git_token from Secrets is >>";
           echo "GITHUB_AUTH_TOKEN: $GITHUB_AUTH_TOKEN"
+          echo $GITHUB_AUTH_TOKEN > ./git_token
+          cat ./git_token
+          
           echo "---------------- Checking Generated BOM --------------- "
          
           #cat ./gitsecure-cis-results.json
