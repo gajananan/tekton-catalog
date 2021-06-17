@@ -59,7 +59,7 @@ spec:
 
           repo=$(curl -sL  https://registry.npmjs.org/-/v1/search\?text\="$i"\&size\=1 | jq . | jq -r .'"objects"' | jq ".[]" | jq -r ".package.links.repository")
 
-          if [ repo != null ]; then
+          if [ $repo != null ]; then
             echo "repo: $repo"
             criticality_score --repo $repo
           fi
